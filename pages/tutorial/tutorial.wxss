@@ -1,0 +1,5 @@
+/* pages/tutorial/tutorial.wxss */
+
+#tutorial-video, #vid-wrap {
+  height: 40vh
+}

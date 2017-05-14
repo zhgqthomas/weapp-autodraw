@@ -1,0 +1,10 @@
+<!--pages/tutorial/tutorial.wxml-->
+<import src="../../common/foot.wxml" />
+
+<view class="container">
+
+  <view id="vid-wrap">
+  <video id="tutorial-video" src="https://storage.googleapis.com/artlab-public.appspot.com/videos/0.mp4" controls="{{false}}" autoplay="{{true}}" poster="../../image/white.png" objectFit ="contain"></video>
+  </view>
+  <template is="foot"/>
+</view>

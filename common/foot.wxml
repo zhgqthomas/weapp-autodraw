@@ -1,0 +1,3 @@
+<template name="foot">
+  <text class="foot">@骑摩托马斯</text>
+</template>

@@ -1,0 +1,15 @@
+<!--pages/draw/draw.wxml-->
+
+<view class="container">
+
+  <view class="recommend-area">
+
+  </view>
+
+  <canvas style="width: {{width}}px; height: 300px" canvas-id="{{canvasId}}" class="canvas" disable-scroll="true" 
+    bindtouchstart="touchStart" 
+    bindtouchmove="touchMove"
+    bindtouchend="touchEnd"/>
+
+    <image src="https://storage.googleapis.com/artlab-public.appspot.com/stencils/selman/squiggle-02.svg"/>
+</view>

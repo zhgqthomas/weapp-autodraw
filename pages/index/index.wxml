@@ -1,0 +1,13 @@
+<!--index.wxml-->
+<import src="../../common/foot.wxml" />
+
+<view class="container">
+  <image  class="image" src="../../image/splash.png" />
+
+  <text class="text">{{slogn}}</text>
+
+  <button class="button start-draw" hover-class="start-draw-hover" bindtap="nav2Draw">{{startDraw}}</button>
+  <button class="button tutorial" hover-class="tutorial-hover" bindtap="nav2Tutorial">{{tutorial}}</button>
+
+  <template is="foot"/>
+</view>

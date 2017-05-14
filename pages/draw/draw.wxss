@@ -1,0 +1,5 @@
+/* pages/draw/draw.wxss */
+
+.canvas {
+  background-color: #ffffff;
+}

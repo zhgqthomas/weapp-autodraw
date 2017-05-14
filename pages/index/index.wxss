@@ -1,0 +1,56 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.image {
+  width: 350rpx;
+  height: 350rpx;
+  margin-top: 100rpx;
+}
+
+.text {
+  margin-top: 100rpx;
+  margin-bottom: 110rpx;
+  font-size: 30rpx;
+}
+
+.button {
+  width: 350rpx;
+  font-size: 28rpx;
+  color: #ffffff;
+}
+
+.start-draw {
+  background-color: #00DF54;
+}
+
+.tutorial {
+  margin-top: 50rpx;
+  background-color: #437AF8;
+}
+
+.start-draw-hover {
+  background-color: #04AD43;
+}
+
+.tutorial-hover {
+  background-color: #2E57B4;
+}
