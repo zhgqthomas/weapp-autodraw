@@ -1,15 +1,23 @@
 <!--pages/draw/draw.wxml-->
 
-<view class="container">
+<view class="root">
 
   <view class="recommend-area">
 
   </view>
+	
+		<view class="toolbar">
 
-  <canvas style="width: {{width}}px; height: 300px" canvas-id="{{canvasId}}" class="canvas" disable-scroll="true" 
-    bindtouchstart="touchStart" 
-    bindtouchmove="touchMove"
-    bindtouchend="touchEnd"/>
+			<view class="tool delete">
+				<image src="../../image/delete.svg"></image>
+			</view>
+		</view>
 
-    <image src="https://storage.googleapis.com/artlab-public.appspot.com/stencils/selman/squiggle-02.svg"/>
+		<canvas 
+			canvas-id="{{canvasId}}" 
+			class="paper" 
+			disable-scroll="true" 
+    	bindtouchstart="onTouchStart" 
+    	bindtouchmove="onTouchMove"
+    	bindtouchend="onTouchEnd"/>
 </view>

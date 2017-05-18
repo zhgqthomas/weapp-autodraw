@@ -2,23 +2,18 @@
 
 const {Cloud} = require('../../lib/av-weapp-min.js')
 
-const cloud_match_draw = 'matchDraw'
-
-var app = getApp()
-
-var pageData = {
-  canvasId: 'draw-canvas',
-  width: 0,
-  height: 0
-}
-
-var arrayX = []
-var arrayY = []
-var arrayTime = []
+const app = getApp()
 
 Page({
 
-  data: pageData,
+  data: {
+		canvasId: 'draw-canvas',
+		width: 0,
+		height: 0,
+		colors: ['#4285f4', '#2dd354', '#fcd015', '#f7931e', '#ef4037', '#b442cc', '#1a1a1a', '#ffffff'],
+		paintColor: '#4285f4',
+		hidden: false
+	},
 
   /**
    * 生命周期函数--监听页面加载
@@ -30,23 +25,28 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
+		wx.setNavigationBarTitle({
+			title: app.globalData.language.drawTitle,
+		})
+
+		this.setData({
+			width: app.globalData.systemInfo.windowWidth,
+			height: app.globalData.systemInfo.windowHeight
+		})
+
+		this.context = wx.createCanvasContext(this.data.canvasId)
+
+		console.log(this.context)
+		this.arrayX = []
+		this.arrayY = []
+		this.arrayTime = []
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.setNavigationBarTitle({
-      title: app.globalData.language.drawTitle,
-    })
-
-    this.setData({
-      width: app.globalData.systemInfo.windowWidth,
-      height: app.globalData.systemInfo.windowHeight
-    })
-
-    this.context = wx.createCanvasContext(this.data.canvasId)
   },
 
   /**
@@ -56,41 +56,44 @@ Page({
   
   },
 
-  //
-  touchStart: function(e) {
-
-    this.startX = e.changedTouches[0].x
-    this.startY = e.changedTouches[0].y
-    this.context.setStrokeStyle('#000000')
-    this.context.setLineWidth(2)
-    this.context.setLineCap('round')
-    this.context.beginPath()
-
-    arrayX.push(this.startX)
-    arrayY.push(this.startY)
-    arrayTime.push(float2int(e.timeStamp))
+  chooseColor: function(e) {
+		let paintColor = e.currentTarget.dataset.color;
+		this.setData({
+			paintColor
+		})
   },
 
-  touchMove: function(e) {
+  onTouchStart: function( {touches, timeStamp} ) {
 
-    var curX = e.changedTouches[0].x
-    var curY = e.changedTouches[0].y
+		const {x ,y } = touches[0]
+		this.movements = [[x, y]]
 
-    arrayX.push(curX)
-    arrayY.push(curY)
-    arrayTime.push(float2int(e.timeStamp))
+		this.arrayX.push(x)
+		this.arrayY.push(y)
+		this.arrayTime.push(float2int(timeStamp))
+  },
 
-    this.context.moveTo(this.startX, this.startY)
-    this.context.lineTo(curX, curY)
-    this.context.stroke()
+  onTouchMove: function( { touches, timeStamp }) {
 
-    this.startX = curX;
-    this.startY = curY;
+		const { x, y } = touches[0]
+		this.movements.push( [x, y])
 
+		this.arrayX.push(x)
+		this.arrayY.push(y)
+		this.arrayTime.push(float2int(timeStamp))
+
+		const [start, ...moves] = this.movements
+
+		this.context.moveTo(...start)
+		moves.forEach(move => this.context.lineTo(...move))
+
+		this.context.setLineWidth(5)
+		this.context.setStrokeStyle(this.data.paintColor)
+		this.context.stroke()
     this.context.draw(true)
   },
 
-  touchEnd: function(e) {
+  onTouchEnd: function(e) {
 
     const options = {
       'input_type': 0,
@@ -100,13 +103,13 @@ Page({
           'width': this.data.width,
           'height': this.data.height
         },
-        'ink': [[arrayX, arrayY, arrayTime]]
+        'ink': [[this.arrayX, this.arrayY, this.arrayTime]]
       }]
     }
 
-    var that = this
+    let that = this
 
-    Cloud.run(cloud_match_draw, options).then(function (res) {
+		Cloud.run('matchDraw', options).then(function (res) {
 
       const array = JSON.parse(res)
 
@@ -136,7 +139,7 @@ function achievePath(inks) {
   const params = []
 
   for (const index in inks) {
-    var item = inks[index]
+    let item = inks[index]
     item = item.replace(/ /ig, '-') // 替换空格为 '-'
 
     console.log(item)
