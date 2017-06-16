@@ -1,23 +1,25 @@
 <!--pages/draw/draw.wxml-->
 
+<import src="/pages/template/recommend-template.wxml"/>
+
 <view class="root">
 
-  <view class="recommend-area">
-
+  <view class="recommend-session recommend-session-spacing">
+        <view class="recommend-settion-content">
+          <scroll-view class="recommend-scroll" scroll-x="true">
+            <block wx:for="{{recommends}}" wx:key="title" wx:for-item="recommend">
+              <template is="recommend-template" data="{{recommend}}"/>
+            </block>
+          </scroll-view>
+        </view>
   </view>
-	
-		<view class="toolbar">
 
-			<view class="tool delete">
-				<image src="../../image/delete.svg"></image>
-			</view>
-		</view>
+  <canvas style="width: {{width}}px; height: {{height - 250}}px" canvas-id="{{canvasId}}" class="canvas" disable-scroll="true" 
+    bindtouchstart="touchStart" 
+    bindtouchmove="touchMove"
+    bindtouchend="touchEnd"/>
 
-		<canvas 
-			canvas-id="{{canvasId}}" 
-			class="paper" 
-			disable-scroll="true" 
-    	bindtouchstart="onTouchStart" 
-    	bindtouchmove="onTouchMove"
-    	bindtouchend="onTouchEnd"/>
+  <view class="delete-session" bindtap="handleDeleteTap">
+    <image class="delete" src="../../image/delete.svg" />
+  </view>
 </view>

@@ -1,7 +1,7 @@
 //app.js
 
 const AV = require('./lib/av-weapp-min.js')
-const language = require('./utils/language.js')
+var language = require('./utils/language.js')
 const config = require('./config.js')
 
 var data = {

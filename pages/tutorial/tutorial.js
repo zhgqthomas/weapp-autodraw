@@ -2,15 +2,9 @@
 
 var app = getApp()
 
-var tutorial = [
-  'https://storage.googleapis.com/artlab-public.appspot.com/videos/0.mp4',
-  'https://storage.googleapis.com/artlab-public.appspot.com/videos/1.mp4',
-  'https://storage.googleapis.com/artlab-public.appspot.com/videos/2.mp4',
-]
-
 var pageData = {
 
-}                
+}
 
 
 Page({
@@ -44,13 +38,20 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-   
+  
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+  
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
   
   },
 
@@ -74,4 +75,11 @@ Page({
   onReachBottom: function () {
   
   },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+  
+  }
 })

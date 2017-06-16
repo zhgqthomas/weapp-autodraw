@@ -1,0 +1,7 @@
+<template name="recommend-template">
+  <view class="recommend-wrapper">
+    <view class="recommend-content">
+      <image id="{{recommend.title}}" class="recommend-image" src="{{recommend.image}}" binderror="handleImageError" bindlongtap="handleImageLongTap"/>
+    </view>
+  </view>
+</template>

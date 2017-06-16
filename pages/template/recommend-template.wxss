@@ -1,0 +1,36 @@
+
+
+.recommend-wrapper {
+  width: 175rpx;
+  display: inline-block;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+
+.recommend-wrapper:first-child {
+  margin-left: 0rpx;
+}
+
+.recommend-wrapper:last-child {
+  margin-right: 0rpx;
+}
+
+.recommend-content .recommend-image {
+  width: 175rpx;
+  height: 260rpx;
+}
+
+.recommend-content .recommend-title {
+  display: inline-block;
+  color: #4a4a4a;
+  font-size: 16rpx;
+  height: 60rpx;
+  font-weight: 600;
+  word-break: break-all;
+  white-space: pre-line;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 30rpx;
+  width: 175rpx;
+}
+

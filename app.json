@@ -7,7 +7,7 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#303F9F",
+    "navigationBarTextStyle":"white"
   }
 }
