@@ -1,9 +1,7 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/draw/draw",
-    "pages/tutorial/tutorial"
+    "pages/draw/draw"
   ],
   "window":{
     "backgroundTextStyle":"light",

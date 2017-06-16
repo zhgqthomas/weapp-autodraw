@@ -5,8 +5,7 @@ var app = getApp()
 var indexData = {
   userInfo: {},
   slogn: '',
-  startDraw: '',
-  tutorial: '',
+  startDraw: ''
 }
 
 Page({
@@ -25,7 +24,6 @@ Page({
     that.setData({
       slogn: app.globalData.language.slogn,
       startDraw: app.globalData.language.startDraw,
-      tutorial: app.globalData.language.tutorial
     })
   },
 
