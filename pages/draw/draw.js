@@ -17,6 +17,7 @@ var pageData = {
 var arrayX = []
 var arrayY = []
 var arrayTime = []
+let initial = false
 
 Page({
 
@@ -126,7 +127,15 @@ Page({
           recommends: results
         })
 
-        console.log(that.data.recommends)
+        if (!initial) {
+          wx.showToast({
+            title: app.globalData.language.longPressToast,
+            duration: 2000,
+            success: function(res) {
+              initial = true
+            }
+          })
+        }
       }
 
     }, function (error) {

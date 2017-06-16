@@ -4,7 +4,8 @@ var zh = {
   startDraw: '开始绘画',
   tutorial: '如何上手',
   tutorialTitle: '讲解',
-  drawTitle: '绘画'
+  drawTitle: '绘画',
+  longPressToast: '长按复制图片链接'
 }
 
 var en = {
@@ -13,7 +14,8 @@ var en = {
   startDraw: 'Start Drawing',
   tutorial: 'Fast How-To',
   tutorialTitle: 'How-To',
-  drawTitle: 'Drawing'
+  drawTitle: 'Drawing',
+  longPressToast: "Long press copy image's url"
 }
 
 module.exports = {
