@@ -11,7 +11,8 @@ var pageData = {
   canvasId: 'draw-canvas',
   width: 0,
   height: 0,
-  recommends: null
+  recommends: null,
+  stencils: null
 }
 
 var arrayX = []
@@ -27,6 +28,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+    // get stencils
+    var that = this
+    app.getStencils(function(data) {
+      
+      that.setData({
+        stencils: data
+      })
+    })
   },
 
   /**

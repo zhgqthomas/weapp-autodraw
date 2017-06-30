@@ -7,7 +7,8 @@ const config = require('./config.js')
 var data = {
   userInfo: null,
   language: null,
-  systemInfo: null
+  systemInfo: null,
+  stencils: null
 }
 
 AV.init({
@@ -18,11 +19,6 @@ AV.init({
 App({
   globalData: data,
   onLaunch: function () {
-    
-    //调用 API 从本地缓存中获取数据
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
 
     // 根据系统语言来显示对应语言
     var systemInfo = wx.getSystemInfoSync()
@@ -34,7 +30,8 @@ App({
 
     this.globalData.systemInfo = systemInfo
   },
-  getUserInfo:function(cb){
+
+  getUserInfo: function(cb){
     var that = this
     if(this.globalData.userInfo){
       typeof cb == "function" && cb(this.globalData.userInfo)
@@ -45,10 +42,29 @@ App({
           wx.getUserInfo({
             success: function (res) {
               that.globalData.userInfo = res.userInfo
-              typeof cb == "function" && cb(that.globalData.userInfo)
+              typeof cb == "function" && cb(res.userInfo)
             }
           })
         }
+      })
+    }
+  },
+
+  getStencils: function(callBack) {
+    var that = this
+    if (this.globalData.stencils) {
+      typeof callBack === "function" && callBack(this.globalData.stencils)
+    } else {
+
+      AV.Cloud.run('stencils').then(function (data) {
+
+        const stencils = JSON.parse(data)
+        console.log(stencils)
+        that.globalData.stencils = stencils
+        typeof callBack === "function" && callBack(stencils)
+
+      }, function (error) {
+        console.log(error)
       })
     }
   }
