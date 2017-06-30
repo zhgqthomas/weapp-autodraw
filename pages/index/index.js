@@ -25,6 +25,9 @@ Page({
       slogn: app.globalData.language.slogn,
       startDraw: app.globalData.language.startDraw,
     })
+
+    // 初始化 stencils
+    app.getStencils()
   },
 
   onShow: function() {

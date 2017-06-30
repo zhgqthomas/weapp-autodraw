@@ -3,6 +3,7 @@
 const AV = require('./lib/av-weapp-min.js')
 var language = require('./utils/language.js')
 const config = require('./config.js')
+const template = require('./stencils.js')
 
 var data = {
   userInfo: null,
@@ -56,15 +57,14 @@ App({
       typeof callBack === "function" && callBack(this.globalData.stencils)
     } else {
 
-      AV.Cloud.run('stencils').then(function (data) {
+      AV.Cloud.run('stencils', {}).then(function (result) {
 
-        const stencils = JSON.parse(data)
-        console.log(stencils)
-        that.globalData.stencils = stencils
-        typeof callBack === "function" && callBack(stencils)
+        that.globalData.stencils = result
+        typeof callBack === "function" && callBack(result)
 
       }, function (error) {
-        console.log(error)
+        
+        that.globalData.stencils = template
       })
     }
   }

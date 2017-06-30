@@ -7,7 +7,7 @@
   <view class="recommend-session recommend-session-spacing">
         <view class="recommend-settion-content">
           <scroll-view class="recommend-scroll" scroll-x="true">
-            <block wx:for="{{recommends}}" wx:key="title" wx:for-item="recommend">
+            <block wx:for="{{recommends}}" wx:for-item="recommend">
               <template is="recommend-template" data="{{recommend}}"/>
             </block>
           </scroll-view>

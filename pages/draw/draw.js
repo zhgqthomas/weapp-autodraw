@@ -1,9 +1,7 @@
 // pages/draw/draw.js
 
 const {Cloud} = require('../../lib/av-weapp-min.js')
-
-const cloud_match_draw = 'matchDraw'
-const baseUrl = 'https://storage.googleapis.com/artlab-public.appspot.com/stencils/selman/'
+const template = require('../../stencils.js')
 
 var app = getApp()
 
@@ -11,9 +9,10 @@ var pageData = {
   canvasId: 'draw-canvas',
   width: 0,
   height: 0,
-  recommends: null,
-  stencils: null
+  recommends: null
 }
+
+let stencils = null
 
 var arrayX = []
 var arrayY = []
@@ -30,13 +29,11 @@ Page({
   onLoad: function (options) {
     
     // get stencils
-    var that = this
-    app.getStencils(function(data) {
-      
-      that.setData({
-        stencils: data
-      })
-    })
+    if (app.globalData.stencils) {
+      stencils = app.globalData.stencils
+    } else {
+      stencils = template
+    }
   },
 
   /**
@@ -120,7 +117,7 @@ Page({
 
     var that = this
 
-    Cloud.run(cloud_match_draw, options).then(function (res) {
+    Cloud.run('matchDraw', options).then(function (res) {
 
       const array = JSON.parse(res)
 
@@ -128,8 +125,6 @@ Page({
 
       if (flag == 'SUCCESS') {
         const inks = array[1][0][1]
-
-        console.log(inks)
 
         const results = achievePath(inks)
         
@@ -150,23 +145,6 @@ Page({
 
     }, function (error) {
       console.log(error)
-    })
-  },
-
-  // 处理加载图片失败
-  handleImageError: function(e) {
-
-    const params = []
-    for (const index in this.data.recommends) {
-      const recommend = this.data.recommends[index]
-
-      if (!recommend.title.match(e.target.id)) {
-        params.push(recommend)
-      }
-    }
-
-    this.setData({
-      recommends: params
     })
   },
 
@@ -211,23 +189,33 @@ function float2int(value) {
 
 function achievePath(inks) {
 
+  const keys = Object.keys(stencils)
   const params = []
 
-  for (const index in inks) {
-    var item = inks[index]
-    item = item.replace(/ /ig, '-') // 替换空格为 '-'
+  for (const i in inks) { // 遍历机器学习返回的单词
+    const item = inks[i]
 
-    for (var i = 1; i < 4; i ++) {
-      const name = item + '-0' + i + '.svg'
-      const url = baseUrl + name
+    for (const j in keys) {
 
-      const recommend = {
-        image: url,
-        title: name
+      const key = keys[j]
+      if (key.indexOf(item) !== -1) { // 返回的单词与模板单词进行匹配
+        
+        const array = stencils[key]
+
+        for (const k in array) { // 取出匹配成功的 src
+          const info = array[k]
+
+          const result = {
+            title: key,
+            src: info.src,
+            collection: info.collection
+          }
+
+          params.push(result)
+        }
       }
-      
-      params.push(recommend)
     }
+
   }
 
   return params
